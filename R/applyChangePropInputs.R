@@ -1,9 +1,11 @@
+require(xml2)
+
 applyChangePropInputs <- function(inputPath, groupNames, propertyNames, newArgsList, newPath) {
   # find the group names and variables in each group
   groupVar <- getInputNames(inputPath, print = FALSE)
 
   # read in xml file
-  inputFile <- read_xml(x = inputPath)
+  inputFile <- xml2::read_xml(x = inputPath)
 
   #create a dataframe of new arguments
   if (is.list(newArgs)){
@@ -18,6 +20,6 @@ applyChangePropInputs <- function(inputPath, groupNames, propertyNames, newArgsL
   checkArgLen(inputFile)
 
   #write file
-  write_xml(inputFile, newPath)
+  xml2::write_xml(inputFile, newPath)
 }
 

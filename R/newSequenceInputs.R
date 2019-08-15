@@ -1,3 +1,16 @@
+#' Title
+#'
+#' @param inputPath
+#' @param groupNames
+#' @param propertyNames
+#' @param newArgs
+#' @param dartDir
+#' @param newPath
+#'
+#' @return
+#' @export
+#'
+#' @examples
 dartSeqNewInputs <- function(inputPath, groupNames, propertyNames, newArgs,
                              dartDir, newPath = inputPath){
   # define the inputs into DART sequencer and run the sequence

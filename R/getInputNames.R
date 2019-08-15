@@ -1,7 +1,20 @@
+#' Title
+#'
+#' @param inputPath
+#' @param print
+#'
+#' @return
+#' @export
+#'
+#' @examples
+
+
 getInputNames <- function(inputPath, print = TRUE) {
   #show what groups are available and what variables are available in each group
 
-  inputFile <- read_xml(x = inputPath)
+  require(xml2)
+
+  inputFile <- xml2::read_xml(x = inputPath)
 
   groupPath <- '/DartFile/DartSequencerDescriptor/DartSequencerDescriptorEntries/DartSequencerDescriptorGroup'
   groups <- xml_find_all(inputFile, groupPath)

@@ -1,3 +1,4 @@
+require(xml2)
 changePropertyInput <- function(newInputs, groupVar, inputFile, inputPath, newPath) {
   # Replaces the argument with newArg and saves file
 
@@ -23,10 +24,10 @@ changeNParThre <- function(inputFile) {
   # changes numberparallelthreads to the product of args in different groups.
 
   seqPrefsPath <- '/DartFile/DartSequencerDescriptor/DartSequencerPreferences'
-  seqPrefs <- xml_find_all(inputFile, seqPrefsPath)
+  seqPrefs <- xml2::xml_find_all(inputFile, seqPrefsPath)
   nParThre <- numberParallelThreads(inputFile)
 
-  xml_attr(seqPrefs, 'numberParallelThreads') <- nParThre
+  xml2::xml_attr(seqPrefs, 'numberParallelThreads') <- nParThre
 }
 
 changeArg <- function(inputFile, groupName, propertyName, newArg) {
@@ -34,14 +35,14 @@ changeArg <- function(inputFile, groupName, propertyName, newArg) {
 
   groupIndex <- getGroupIndex(inputFile, groupName)
   groupPath <- '/DartFile/DartSequencerDescriptor/DartSequencerDescriptorEntries/DartSequencerDescriptorGroup'
-  groups <- xml_find_all(inputFile, groupPath)
+  groups <- xml2::xml_find_all(inputFile, groupPath)
   groupNo <- groups[groupIndex]
   propertyPath <- 'DartSequencerDescriptorEntry'
-  properties <- xml_find_all(groupNo, propertyPath)
-  propertyIndex <- which(xml_attr(properties, 'propertyName') == as.character(propertyName))
+  properties <- xml2::xml_find_all(groupNo, propertyPath)
+  propertyIndex <- which(xml2::xml_attr(properties, 'propertyName') == as.character(propertyName))
   propertyNo <- properties[propertyIndex]
 
-  xml_attr(propertyNo, 'args') <- newArg
+  xml2::xml_attr(propertyNo, 'args') <- newArg
 }
 
 changeSeqName <- function(inputFile, newPath) {
@@ -49,7 +50,7 @@ changeSeqName <- function(inputFile, newPath) {
 
   newSeqName <- getNewSeqName(inputFile, newPath)
   seqDescPath <- '/DartFile/DartSequencerDescriptor'
-  seqDesc <- xml_find_all(inputFile, seqDescPath)
+  seqDesc <- xml2::xml_find_all(inputFile, seqDescPath)
 
-  xml_attr(seqDesc, 'sequenceName') <- newSeqName
+  xml2::xml_attr(seqDesc, 'sequenceName') <- newSeqName
 }

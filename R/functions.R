@@ -1,13 +1,14 @@
+require(xml2)
 numberParallelThreads <- function (inputFile) {
   # find the number of parrallel threads
 
   groupPath <- '/DartFile/DartSequencerDescriptor/DartSequencerDescriptorEntries/DartSequencerDescriptorGroup'
-  groups <- xml_find_all(inputFile, groupPath)
+  groups <- xml2::xml_find_all(inputFile, groupPath)
 
   groupLen <- c()
   for (i in 1:length(groups)) {
-    x <- xml_find_all(groups[i], 'DartSequencerDescriptorEntry')
-    args <- (xml_attr(x, 'args'))
+    x <- xml2::xml_find_all(groups[i], 'DartSequencerDescriptorEntry')
+    args <- (xml2::xml_attr(x, 'args'))
     lensArgs <- unique(lengths(strsplit(args, ';')))
     groupLen <- c(groupLen, lensArgs)
   }
@@ -15,13 +16,14 @@ numberParallelThreads <- function (inputFile) {
   return(nParThre)
 }
 
+require(stringr)
 getNewSeqName <- function(inputFile, newPath) {
   # create new sequence name
 
   # split up current descriptor name
   seqDescPath <- '/DartFile/DartSequencerDescriptor'
-  seqDesc <- xml_find_all(inputFile, seqDescPath)
-  seqName <- xml_attr(seqDesc, 'sequenceName')
+  seqDesc <- xml2::xml_find_all(inputFile, seqDescPath)
+  seqName <- xml2::xml_attr(seqDesc, 'sequenceName')
   splitSeqName <- strsplit(seqName, ';;')
 
   # get new file name
@@ -40,8 +42,8 @@ getGroupIndex <- function(inputFile, groupName) {
   # finds the index of the specified group
 
   groupPath <- '/DartFile/DartSequencerDescriptor/DartSequencerDescriptorEntries/DartSequencerDescriptorGroup'
-  groups <- xml_find_all(inputFile, groupPath)
-  groupIndex <- which(xml_attr(groups, 'groupName') == as.character(groupName))
+  groups <- xml2::xml_find_all(inputFile, groupPath)
+  groupIndex <- which(xml2::xml_attr(groups, 'groupName') == as.character(groupName))
   return(groupIndex)
 }
 
@@ -90,8 +92,8 @@ getReqFileNames <- function(newInputFile, sequenceDir, fileName) {
   # get the required file names to be created before process ends
 
   seqPrefsPath <- '/DartFile/DartSequencerDescriptor/DartSequencerPreferences'
-  seqPrefs <- xml_find_all(newInputFile, seqPrefsPath)
-  nParThre <- xml_attr(seqPrefs, 'numberParallelThreads')
+  seqPrefs <- xml2::xml_find_all(newInputFile, seqPrefsPath)
+  nParThre <- xml2::xml_attr(seqPrefs, 'numberParallelThreads')
 
   reqiredFileNos <- seq(0, as.numeric(nParThre) - 1, by = 1)
   reqiredFileNames <- paste0(sequenceDir, '/', fileName, '_', reqiredFileNos)

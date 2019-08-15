@@ -28,22 +28,23 @@ checkErrors <- function(groupVar, propertyName, groupName, newArg){
   }
 }
 
+require(xml2)
 checkArgLen <- function(inputFile){
   # ensure all args in a group are the same length
 
   groupPath <- '/DartFile/DartSequencerDescriptor/DartSequencerDescriptorEntries/DartSequencerDescriptorGroup'
-  groups <- xml_find_all(inputFile, groupPath)
+  groups <- xml2::xml_find_all(inputFile, groupPath)
 
   for (i in 1:length(groups)) {
-    x <- xml_find_all(groups[i], 'DartSequencerDescriptorEntry')
-    args <- (xml_attr(x, 'args'))
+    x <- xml2::xml_find_all(groups[i], 'DartSequencerDescriptorEntry')
+    args <- (xml2::xml_attr(x, 'args'))
     if (length(args) > 1){
       argLen <- c()
       for (ii in 1:length(args)) {
         argLen <- c(argLen, length(strsplit(args[ii], ';')[[1]]))
         if ( length(unique(argLen)) > 1) {
           stop('Args within the same group must have the same length. Current arg lengths in ',
-               xml_attr(groups[i], 'groupName'), ': ', paste(argLen, collapse = ', '), '.')
+               xml2::xml_attr(groups[i], 'groupName'), ': ', paste(argLen, collapse = ', '), '.')
         }
       }
     }

@@ -1,8 +1,9 @@
 runDartSequencer <- function(newPath, dartDir) {
   # runs DART sequencer using the inputs of newPath
-
+  require(xml2)
+  require(processx)
   # read new file
-  newInputFile <- read_xml(x = newPath)
+  newInputFile <- xml2::read_xml(x = newPath)
 
   # get new file name and directory to sequence folder
   splitPathName <- getSplitPathName(newPath)
@@ -23,7 +24,7 @@ runDartSequencer <- function(newPath, dartDir) {
   if (os == "win") {
     # start dart process for windows
     p <- process$new('dart-sequence.bat', args = c(l2FileName, '-start', '-jobs'),
-                     wd = dartDir, stderr = '|', echo_cmd = TRUE)
+                     wd = dartDir, stderr = '|')
   }
   if (os == "mac" | os == "unix") {
     # start dart process for windows

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DartFile version="1.0">
+  <DartSequencerDescriptor sequenceName="sequence;;example1">
+    <DartSequencerDescriptorEntries>
+      <DartSequencerDescriptorGroup groupName="group1">
+        <DartSequencerDescriptorEntry args="1;100;200" propertyName="Directions.ExactDateHour.day" type="enumerate"/>
+      </DartSequencerDescriptorGroup>
+      <DartSequencerDescriptorGroup groupName="group2">
+        <DartSequencerDescriptorEntry args="0;0" propertyName="Directions.ExactDateHour.month" type="enumerate"/>
+      </DartSequencerDescriptorGroup>
+    </DartSequencerDescriptorEntries>
+    <DartSequencerPreferences atmosphereMaketLaunched="true" dartLaunched="true" deleteAll="false" deleteAtmosphere="false" deleteAtmosphereMaket="false" deleteDartLut="false" deleteDartSequenceur="false" deleteDartTxt="false" deleteDirection="false" deleteInputs="false" deleteLibPhase="false" deleteMaket="false" deleteMaketTreeResults="false" deleteTreePosition="false" deleteTriangles="false" demGeneratorLaunched="true" directionLaunched="true" displayEnabled="true" genMode="XML" hapkeLaunched="true" individualDisplayEnabled="false" maketLaunched="true" numberParallelThreads="6" phaseLaunched="true" prospectLaunched="false" triangleFileProcessorLaunched="true" useBroadBand="true" useSceneSpectra="true" vegetationLaunched="true" zippedResults="false"/>
+    <DartLutPreferences addedDirection="false" atmosToa="false" atmosToaOrdre="false" coupl="true" fluorescence="true" generateLUT="true" iterx="true" luminance="true" maketCoverage="false" ordre="true" otherIter="true" phiMax="" phiMin="" productsPerType="false" reflectance="true" sensor="true" storeIndirect="false" thetaMax="" thetaMin="" toa="true"/>
+  </DartSequencerDescriptor>
+</DartFile>
