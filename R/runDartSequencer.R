@@ -8,10 +8,10 @@ runDartSequencer <- function(newPath, dartDir) {
   # get new file name and directory to sequence folder
   splitPathName <- getSplitPathName(newPath)
 
-  splitPathName2 <- splitPathName[[1]][c(length(splitPathName[[1]])-1, length(splitPathName[[1]]))]
+  splitPathName2 <- splitPathName[[1]][c(length(splitPathName[[1]]) - 1, length(splitPathName[[1]]))]
   l2FileName <- paste0(splitPathName2, collapse = '/')
 
-  newPathSplit <- splitPathName[[1]][1:length(splitPathName[[1]])-1]
+  newPathSplit <- splitPathName[[1]][1:length(splitPathName[[1]]) - 1]
   newPathUnsplit <- paste0(newPathSplit, collapse = '/')
   sequenceDir <- paste0(newPathUnsplit, '/sequence')
 
@@ -43,9 +43,9 @@ runDartSequencer <- function(newPath, dartDir) {
   p$get_error_connection()
   err <- p$read_error_lines()
 
-  if (identical(err,character(0)) == FALSE) {
+  if (!identical(err, character(0))) {
     warning('DART error message: ', err)
-    p$kill()
+    p$kill_tree()
   }
 
   #get the file name
@@ -61,6 +61,6 @@ runDartSequencer <- function(newPath, dartDir) {
   }
 
   #end process
-  p$kill()
-  message('MESSAGE: process successful, connection ended.')
+  p$kill_tree()
+  message('Sequence folders configured.')
 }

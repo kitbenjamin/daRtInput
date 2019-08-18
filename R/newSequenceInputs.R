@@ -1,8 +1,8 @@
 #' Title
 #'
-#' @param inputPath
-#' @param groupNames
-#' @param propertyNames
+#' @param inputPath Put description for params here
+#' @param groupNames Description for groupNames goes here
+#' @param propertyNames etc
 #' @param newArgs
 #' @param dartDir
 #' @param newPath
