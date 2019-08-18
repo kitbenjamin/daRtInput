@@ -56,6 +56,7 @@ runDartSequencer <- function(newPath, dartDir) {
   reqiredFileNames <- getReqFileNames(newInputFile, sequenceDir, fileName)
 
   #when all files are created kill process
+  #potential for infinite loop - add a timeout (optional argument to function?)
   while (!all(file.exists(reqiredFileNames))) {
     Sys.sleep(1)
   }

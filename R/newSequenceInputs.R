@@ -13,6 +13,12 @@
 #' @examples
 dartSeqNewInputs <- function(inputPath, groupNames, propertyNames, newArgs,
                              dartDir, newPath = inputPath){
+  #move all comments to @* roxygen tabs
+  #make names of function args appropriate e.g. "inputPath" should maybe be "sequenceFileXML" or similar.
+  #'newArgs' should have name 'propertyArgs' or similar.
+  #'dartDir' should be the path to DART (e.g. "C:/User/DART/") and the path to the sequencer.bat can be assumed to
+  #'always be the same within that path to DART. So change "dartDir" name to "DARTprogDir" (DART program Dir) and
+  #'define the sub-directory for the sequncer .bat in the relevant place(s) within the code
   # define the inputs into DART sequencer and run the sequence
   #
   # Args:
