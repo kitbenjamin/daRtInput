@@ -2,14 +2,36 @@
 % Please edit documentation in R/newSequenceInputs.R
 \name{dartSeqNewInputs}
 \alias{dartSeqNewInputs}
-\title{Select the arguments you would like to run in DART and create a sequence of the arguments.}
+\title{dartSeqNewInputs}
 \usage{
-dartSeqNewInputs(inputPath, groupNames, propertyNames, newArgs, dartDir,
-  newPath = inputPath)
+dartSeqNewInputs(simName, ssequenceFileXML, groupNames, propertyNames,
+  propertyArgs, newArgs, DARTprogDir, newFile = inputPath)
 }
 \arguments{
-\item{newPath}{}
+\item{simName}{Name of your simulation.}
+
+\item{groupNames}{Name(s) of the group in which the property whos args you would like to define is}
+
+\item{propertyNames}{Name(s) of the property which you would like to define the DART input for.}
+
+\item{propertyArgs}{Required property input into DART simulation. This should be a vector if changing one arg or a list of vectors
+if changing multiple.}
+
+\item{DARTprogDir}{Path to the 'DART' directory e.g 'C:/User/<username>/DART'.}
+
+\item{sequenceFileXML}{Name of the xml file containing property(s) of which the arguments you would like to change.}
+
+\item{newFileXML}{Name of the xml file with new propertyArgs defined. Default is to overwrite sequenceFileXML}
+}
+\value{
+A sequence of files that together can be used input all propertyArgs into a DART simulation.
 }
 \description{
-Select the arguments you would like to run in DART and create a sequence of the arguments.
+Create a DART sequence based on the arguents defined.
+}
+\examples{
+newArgs' should have name 'propertyArgs' or similar.
+dartDir' should be the path to DART (e.g. "C:/User/DART/") and the path to the sequencer.bat can be assumed to
+always be the same within that path to DART. So change "dartDir" name to "DARTprogDir" (DART program Dir) and
+define the sub-directory for the sequncer .bat in the relevant place(s) within the code
 }

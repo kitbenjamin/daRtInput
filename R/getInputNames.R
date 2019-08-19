@@ -9,10 +9,12 @@
 #' @examples
 
 
-getInputNames <- function(inputPath, print = TRUE) {
+getInputNames <- function(simName, sequenceFileXML, DARTprogDir, print = TRUE) {
   #show what groups are available and what variables are available in each group
-
   require(xml2)
+
+  inputPath = paste0(c(DARTprogDir, 'user_data', 'simulations', simName, sequenceFileXML),  collapse = '/')
+
 
   inputFile <- xml2::read_xml(x = inputPath)
 

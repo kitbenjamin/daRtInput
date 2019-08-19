@@ -1,8 +1,13 @@
-require(xml2)
 
-applyChangePropInputs <- function(inputPath, groupNames, propertyNames, newArgsList, newPath) {
+
+applyChangePropInputs <- function(simName, sequenceFileXML, groupNames, propertyNames, newArgsList, DARTprogDir, newPath) {
+  require(xml2)
+
+  #define the path to the xml file
+  inputPath = paste0(c(DARTprogDir, 'user_data', 'simulations', simName, sequenceFileXML),  collapse = '/')
+
   # find the group names and variables in each group
-  groupVar <- getInputNames(inputPath, print = FALSE)
+  groupVar <- getInputNames(simName, sequenceFileXML, DARTprogDir, print = FALSE)
 
   # read in xml file
   inputFile <- xml2::read_xml(x = inputPath)
