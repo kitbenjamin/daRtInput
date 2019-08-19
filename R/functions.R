@@ -100,6 +100,17 @@ getReqFileNames <- function(newInputFile, sequenceDir, fileName) {
   return(reqiredFileNames)
 }
 
+isLUTselected <- function(sequenceXMLfile){
+  #return bool value for: is the lookup table selected?
+  require(xml2)
+  sequenceXML <- xml2::read_xml(x = sequenceXMLfile)
+  LUTinfo <- xml2::xml_find_all(x = sequenceXML, "/DartFile/DartSequencerDescriptor/DartLutPreferences")
+  LUTattr <- xml2::xml_attr(x = LUTinfo, "generateLUT")
+  LUTval <- match.arg(LUTattr, c("true", "false"), several.ok = FALSE)
+  LUTvalBool <- ifelse(LUTval == "false", FALSE, TRUE)
+  return(LUTvalBool)
+
+}
 
 
 
