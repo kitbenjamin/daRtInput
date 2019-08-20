@@ -14,26 +14,25 @@
 #' @param propertyArgs Required property input into DART simulation. This should be a vector if changing one arg or a list of vectors
 #' if changing multiple.
 #' @param DARTprogDir Path to the 'DART' directory e.g 'C:/User/<username>/DART'.
-#' @param newFileXML Name of the xml file with new propertyArgs defined. Default is to overwrite sequenceFileXML
+#' @param newSequenceFileXML Name of the xml file with new propertyArgs defined. Default is to overwrite sequenceFileXML
+#' @param maxTime Maximum amount of time dart-sequence.bat is allowed to run.
+#' @param userDescBool If True the user must define a new name in which to store the sequence files. Otherwise the datetime in the
+#' form YYYY_DOY_H.M is used.
+#' @param userDesc If userDescBool is TRUE then this will be a string containing the directory name in which the sequence files will be stored.
 #'
 #' @return A sequence of files that together can be used input all propertyArgs into a DART simulation.
 #' @export
 #'
 #' @examples
 dartSeqNewInputs <- function(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs,
-                             DARTprogDir, newFileXML = sequenceFileXML){
-  #move all comments to @* roxygen tabs \/
-  #make names of function args appropriate e.g. "inputPath" should maybe be "sequenceFileXML" or similar.
-  #'newArgs' should have name 'propertyArgs' or similar.
-  #'dartDir' should be the path to DART (e.g. "C:/User/DART/") and the path to the sequencer.bat can be assumed to
-  #'always be the same within that path to DART. So change "dartDir" name to "DARTprogDir" (DART program Dir) and
-  #'define the sub-directory for the sequncer .bat in the relevant place(s) within the code
-  # define the inputs into DART sequencer and run the sequence
-  # change to new file name
-
+                             DARTprogDir, newSequenceFileXML = sequenceFileXML, maxTime = 120,
+                             userDescBool = FALSE, userDesc = NULL){
   # inputs are written to xml file, newPath
-  applyChangePropInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, newPath)
+  applyChangePropInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, newSequenceFileXML)
 
   # run newPath through DART sequencer
-  runDartSequencer(newPath, dartDir)
+  runDartSequencer(newSequenceFileXML, simName, DARTprogDir, maxTime)
+
+  #move files from sequence folder and create an executable script file
+  moveFiles(simName, DARTprogDir, newSequenceFileXML, userDescBool, userDesc)
 }

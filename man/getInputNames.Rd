@@ -4,7 +4,7 @@
 \alias{getInputNames}
 \title{Title}
 \usage{
-getInputNames(inputPath, print = TRUE)
+getInputNames(simName, sequenceFileXML, DARTprogDir, print = TRUE)
 }
 \arguments{
 \item{print}{}

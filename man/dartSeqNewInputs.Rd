@@ -4,11 +4,14 @@
 \alias{dartSeqNewInputs}
 \title{dartSeqNewInputs}
 \usage{
-dartSeqNewInputs(simName, ssequenceFileXML, groupNames, propertyNames,
-  propertyArgs, newArgs, DARTprogDir, newFile = inputPath)
+dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames,
+  propertyArgs, DARTprogDir, newSequenceFileXML = sequenceFileXML,
+  maxTime = 120)
 }
 \arguments{
 \item{simName}{Name of your simulation.}
+
+\item{sequenceFileXML}{Name of the xml file containing property(s) of which the arguments you would like to change.}
 
 \item{groupNames}{Name(s) of the group in which the property whos args you would like to define is}
 
@@ -19,19 +22,13 @@ if changing multiple.}
 
 \item{DARTprogDir}{Path to the 'DART' directory e.g 'C:/User/<username>/DART'.}
 
-\item{sequenceFileXML}{Name of the xml file containing property(s) of which the arguments you would like to change.}
+\item{newSequenceFileXML}{Name of the xml file with new propertyArgs defined. Default is to overwrite sequenceFileXML}
 
-\item{newFileXML}{Name of the xml file with new propertyArgs defined. Default is to overwrite sequenceFileXML}
+\item{maxTime}{Maximum amount of time dart-sequence.bat is allowed to run.}
 }
 \value{
 A sequence of files that together can be used input all propertyArgs into a DART simulation.
 }
 \description{
 Create a DART sequence based on the arguents defined.
-}
-\examples{
-newArgs' should have name 'propertyArgs' or similar.
-dartDir' should be the path to DART (e.g. "C:/User/DART/") and the path to the sequencer.bat can be assumed to
-always be the same within that path to DART. So change "dartDir" name to "DARTprogDir" (DART program Dir) and
-define the sub-directory for the sequncer .bat in the relevant place(s) within the code
 }
