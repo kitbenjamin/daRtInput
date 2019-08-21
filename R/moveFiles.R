@@ -1,4 +1,4 @@
-moveFiles <- function(simName, DARTprogDir, newSequenceFileXML, userDescBool, userDesc){
+moveFiles <- function(simName, DARTprogDir, newSequenceFileXML, DARTprocess, userDescBool, userDesc){
   # moves files from simulation folder to new folder
 
   #path to the simulation folder
@@ -6,7 +6,7 @@ moveFiles <- function(simName, DARTprogDir, newSequenceFileXML, userDescBool, us
 
   #create directory to be moved to
   if (userDescBool == FALSE) {
-    newDir <- paste0(simPath, '/daRtinput', '/', strftime(Sys.time(), format = "%Y_%j_%H.%M") )
+    newDir <- paste0(simPath, '/daRtinput', '/', strftime(Sys.time(), format = "%Y_%j_%H.%M.%S") )
     dir.create(newDir, recursive = TRUE)
   } else if (userDescBool == TRUE) {
     if (is.null(userDesc )) {
