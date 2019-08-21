@@ -1,32 +1,80 @@
 createShellScripts <- function(DARTprogDir, newDir, DARTprocess) {
-  seqFiles <- list.files(newDir)
-  line1 <- '#!/bin/sh'
-  line3 <- '##end script'
+  # create shell files for each sequence folder
 
-  DARTprocessName <- paste0('dart', '-', DARTprocess, '.sh')
-  DARTprocessDir <- paste0(DARTprogDir, '/tools/linux/',DARTprocessName )
+  #all folders shell must be created for
+  seqFiles <- list.files(newDir)
+  # split to get required directory to put into batch file
+  newDir2 <- getND2(newDir)
+
+  #first and last lines
+  line1 <- '#!/bin/sh'
+  linen <- '##end script'
+
+  #loop over all sequence folder
   for (i in seqFiles) {
+    # get path to file and path to file in shell
     seqFilePath <- paste0(newDir,  '/' , i)
-    line2 <- paste(DARTprogDir, seqFilePath, sep = ' ')
+    seqFilePath2 <- paste0(newDir2,  '/' , i)
+
+    #create new file
     newFile <- paste0(seqFilePath, '/', i, '.sh')
-    fileConn<-file(newFile)
-    writeLines(c(line1,line2, line3), fileConn, sep = "\n\n")
+    fileConn <- file(newFile)
+
+    #write first line
+    cat(line1, file = fileConn)
+    cat('\n',file = newFile, append = TRUE)
+    for (ii in DARTprocess){
+      # create the first dart process dir
+      DARTprocessName <- paste0('dart', '-', ii, '.sh')
+      DARTprocessDir <- paste0(DARTprogDir, '/tools/linux/',DARTprocessName )
+
+      # write new line
+      line <- paste(DARTprocessDir, seqFilePath2, sep = ' ')
+      cat(line, file = newFile, append = TRUE)
+      cat('\n\n',file = newFile, append = TRUE)
+    }
+    cat(linen,file = newFile, append = TRUE)
     close(fileConn)
   }
 }
 
 createBatScripts <- function(DARTprogDir, newDir, DARTprocess) {
+  # create batch files for each sequence folder
+
+  #all folders batch must be created for
   seqFiles <- list.files(newDir)
+
+  # split to get required directory to put into batch file
+  newDir2 <- getND2(newDir)
+
+  #define the echo line
   line1 <- '@echo OFF'
 
-  DARTprocessName <- paste0('dart', '-', DARTprocess, '.bat')
-  DARTprocessDir <- paste0(DARTprogDir, '/tools/windows/',DARTprocessName )
+  #loop over all sequence folder
   for (i in seqFiles) {
+    # get path to file and path to file in batch
     seqFilePath <- paste0(newDir,  '/' , i)
-    line2 <- paste('START', DARTprocessDir, seqFilePath, sep = ' ')
+    seqFilePath2 <- paste0(newDir2,  '/' , i)
+
+    #create new file
     newFile <- paste0(seqFilePath, '/', i, '.bat')
-    fileConn<-file(newFile)
-    writeLines(c(line1,line2), fileConn, sep = "\n\n")
+    fileConn <- file(newFile)
+
+    #write first line
+    cat(line1, file = fileConn)
+    cat('\n',file = newFile, append = TRUE)
+    for (ii in DARTprocess){
+      # create the first dart process dir
+      DARTprocessName <- paste0('dart', '-', ii, '.bat')
+      DARTprocessDir <- paste0(DARTprogDir, '/tools/windows/',DARTprocessName )
+
+      # write new line
+      line <- paste('START', DARTprocessDir, seqFilePath2, sep = ' ')
+      cat(line, file = newFile, append = TRUE)
+      cat('\n\n',file = newFile, append = TRUE)
+    }
     close(fileConn)
   }
 }
+
+

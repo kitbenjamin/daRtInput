@@ -14,7 +14,7 @@
 #' @param propertyArgs Required property input into DART simulation. This should be a vector if changing one arg or a list of vectors
 #' if changing multiple.
 #' @param DARTprogDir Path to the 'DART' directory e.g 'C:/User/<username>/DART'.
-#' @param DARTprocess The DART process you would like to run e.g. directions, maket, phase
+#' @param DARTprocess The DART process(s) you would like to run e.g. directions, maket, phase
 #' @param newSequenceFileXML Name of the xml file with new propertyArgs defined. Default is to overwrite sequenceFileXML
 #' @param maxTime Maximum amount of time dart-sequence.bat is allowed to run.
 #' @param userDescBool If True the user must define a new name in which to store the sequence files. Otherwise the datetime in the
@@ -24,16 +24,11 @@
 #' @return A sequence of files that together can be used input all propertyArgs into a DART simulation.
 #' @export
 #'
-#' @examples
 dartSeqNewInputs <- function(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs,
                              DARTprogDir, DARTprocess, newSequenceFileXML = sequenceFileXML, maxTime = 120,
                              userDescBool = FALSE, userDesc = NULL){
-  # inputs are written to xml file, newPath
-  applyChangePropInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, newSequenceFileXML)
+  # inputs are written to xml file, newSequenceFileXML
+  editSequence(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, newSequenceFileXML)
 
-  # run newPath through DART sequencer
-  runDartSequencer(newSequenceFileXML, simName, DARTprogDir, maxTime)
-
-  #move files from sequence folder and create an executable script file
-  moveFiles(simName, DARTprogDir, newSequenceFileXML, DARTprocess, userDescBool, userDesc)
+  makeSequenceJobScripts(simName, newSequenceFileXML, DARTprogDir, DARTprocess,  maxTime, userDescBool, userDesc)
 }

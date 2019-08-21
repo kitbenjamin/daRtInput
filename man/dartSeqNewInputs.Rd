@@ -5,8 +5,9 @@
 \title{dartSeqNewInputs}
 \usage{
 dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames,
-  propertyArgs, DARTprogDir, newSequenceFileXML = sequenceFileXML,
-  maxTime = 120)
+  propertyArgs, DARTprogDir, DARTprocess,
+  newSequenceFileXML = sequenceFileXML, maxTime = 120,
+  userDescBool = FALSE, userDesc = NULL)
 }
 \arguments{
 \item{simName}{Name of your simulation.}
@@ -22,9 +23,16 @@ if changing multiple.}
 
 \item{DARTprogDir}{Path to the 'DART' directory e.g 'C:/User/<username>/DART'.}
 
+\item{DARTprocess}{The DART process(s) you would like to run e.g. directions, maket, phase}
+
 \item{newSequenceFileXML}{Name of the xml file with new propertyArgs defined. Default is to overwrite sequenceFileXML}
 
 \item{maxTime}{Maximum amount of time dart-sequence.bat is allowed to run.}
+
+\item{userDescBool}{If True the user must define a new name in which to store the sequence files. Otherwise the datetime in the
+form YYYY_DOY_H.M.S is used.}
+
+\item{userDesc}{If userDescBool is TRUE then this will be a string containing the directory name in which the sequence files will be stored.}
 }
 \value{
 A sequence of files that together can be used input all propertyArgs into a DART simulation.

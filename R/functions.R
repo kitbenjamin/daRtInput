@@ -88,4 +88,10 @@ isLUTselected <- function(sequenceXML){
 
 }
 
+getND2 <- function (newDir) {
+  newDirSplit <- strsplit(newDir, '/')[[1]]
+  newDir2 <- paste0(newDirSplit[(length(newDirSplit) - 2) :length(newDirSplit)], collapse = '/')
+  return(newDir2)
+}
+
 

@@ -10,6 +10,10 @@
 The goal of daRtInput is to provide a quick method of creating inputs to
 a Dart simulation.
 
+This readme cannot be run through GitHub but the xml files are availble
+from man/data/cesbio. Users with DART installed on their system can
+download these and run this readme locally.
+
 ## Installation
 
 You can install the development version from
@@ -18,7 +22,7 @@ You can install the development version from
 ``` r
 # install.packages("devtools")
 devtools::install_github("kitbenjamin/daRtInput")
-#> Skipping install of 'daRtInput' from a github remote, the SHA1 (46705c7a) has not changed since last install.
+#> Skipping install of 'daRtInput' from a github remote, the SHA1 (f7bdf6a8) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
 
@@ -99,7 +103,7 @@ sequence file is a script file (shell or batch depending on operting
 system), which is capable of running the sequence file through
 dart-maket.
 
-# EXAMPLE 2: change multiple properties
+## EXAMPLE 2: change multiple properties
 
 This time we are changing arguments for multiple propertys. we will also
 choose to run
@@ -177,9 +181,13 @@ groupNames <- c("group1","group1",  "group2")
 
 # define the input arguments as a list of vectors
 propertyArgs <- list(c(1, 2, 3, 4), c(1, 2, 3, 4), c(273, 278, 283, 288, 293, 298))
+```
 
-#run dart-phase
-DARTprocess <- 'directions'
+It’s also possible to run multiple processes.
+
+``` r
+#run dart-directons and dart-maket
+DARTprocess <- DARTprocess <- c('directions', 'maket')
 ```
 
 To create the sequence files, dart-sequence is run. To avoid the

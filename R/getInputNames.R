@@ -6,7 +6,6 @@
 #' @return
 #' @export
 #'
-#' @examples
 
 
 getInputNames <- function(simName, sequenceFileXML, DARTprogDir, print = TRUE) {
