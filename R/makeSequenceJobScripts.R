@@ -16,7 +16,8 @@
 #' process(es).
 #' @export
 #'
-makeSequenceJobScripts <- function(simName,sequenceFileXML,  DARTprogDir, DARTprocess,  maxTime, userDescBool, userDesc) {
+makeSequenceJobScripts <- function(simName,sequenceFileXML,  DARTprogDir, DARTprocess,  maxTime = 120, userDescBool = FALSE,
+                                   userDesc = NULL) {
 
   # run newSequenceFileXML through DART sequencer
   runDartSequencer(sequenceFileXML, simName, DARTprogDir, maxTime)

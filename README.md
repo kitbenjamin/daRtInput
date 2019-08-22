@@ -101,11 +101,32 @@ dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyAr
 The sequence1.xml has been edited such that the property
 ‘Maket.Scene.CellDimensions.x’ now has the specified property
 arguments, ’1.5;3;4.5;6". You will also see the directory
-daRtInput/<datettime> has been created and within this directory is
-sequence files, one for each combination of propertyArgs. Within each
+daRtInput/<datettime>/simName has been created and within this directory
+is sequence files, one for each combination of propertyArgs. Within each
 sequence file is a script file (shell or batch depending on operting
 system), which is capable of running the sequence file through
 dart-maket.
+
+In summary, dartSeqNewInputs essentially carries out two functions: 1.
+editing the xml file that defines the arguments input into DART 2.
+creates sequenced simulation files for each combination of arguments and
+a script file that can execute the simulation folder for the given DART
+process.
+
+These two functions can be carried out seperately. The fist
+function:
+
+``` r
+#edit sequence xml file. Note that as newSequenceFileXML is not defined, sequenceFileXML will be overwritten
+editSequence(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir)
+```
+
+The second function:
+
+``` r
+# make sequenced simulation folders and the scripts to execute them
+makeSequenceJobScripts(simName, sequenceFileXML,  DARTprogDir, DARTprocess)
+```
 
 ## EXAMPLE 2: change multiple properties
 
@@ -145,7 +166,6 @@ This time when we run the function we must ensure that userDescBool is
 set to TRUE so that userDesc is used instead of datetime.
 
 ``` r
-
 #run dertSeqNewInputs
 dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess,
                  newSequenceFileXML = newSequenceFileXML, userDescBool = TRUE, userDesc = userDesc)
@@ -206,7 +226,6 @@ large number of sequences then you may wish to increase this time my
 settin maxTime to 180 for example.
 
 ``` r
-
 #run dertSeqNewInputs
 dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess,
                  maxTime = 180)

@@ -79,7 +79,23 @@ This function runs dart-sequencer so therefore creates simulation files for each
 #run dertSeqNewInputs
 dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess)
 ```
-The sequence1.xml has been edited such that the property 'Maket.Scene.CellDimensions.x' now has the specified property arguments, '1.5;3;4.5;6". You will also see the directory daRtInput/<datettime> has been created and within this directory is sequence files, one for each combination of propertyArgs. Within each sequence file is a script file (shell or batch depending on operting system), which is capable of running the sequence file through dart-maket.
+The sequence1.xml has been edited such that the property 'Maket.Scene.CellDimensions.x' now has the specified property arguments, '1.5;3;4.5;6". You will also see the directory daRtInput/<datettime>/simName has been created and within this directory is sequence files, one for each combination of propertyArgs. Within each sequence file is a script file (shell or batch depending on operting system), which is capable of running the sequence file through dart-maket. 
+
+In summary, dartSeqNewInputs essentially carries out two functions: 
+1. editing the xml file that defines the arguments input into DART 
+2. creates sequenced simulation files for each combination of arguments and a script file that can execute the simulation folder for the given DART process.
+
+These two functions can be carried out seperately. The fist function:
+
+```{r editSequence, eval=FALSE}
+#edit sequence xml file. Note that as newSequenceFileXML is not defined, sequenceFileXML will be overwritten
+editSequence(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir)
+```
+The second function:
+```{r makeSequenceJobScripts, eval=FALSE}
+# make sequenced simulation folders and the scripts to execute them
+makeSequenceJobScripts(simName, sequenceFileXML,  DARTprogDir, DARTprocess)
+```
 
 ## EXAMPLE 2: change multiple properties
 
@@ -94,7 +110,6 @@ propertyArgs <- list(c(1, 2, 3, 4, 5, 6), c(2, 4, 6))
 
 #run dart-phase
 DARTprocess <- 'phase'
-
 ```
 
 This time, instead of overwritting the sequence XML file we shall create a new file called sequence1_ex2.xml
@@ -112,7 +127,6 @@ userDesc <- 'example2'
 This time when we run the function we must ensure that userDescBool is set to TRUE so that userDesc is used instead of datetime.
 
 ```{r eval=FALSE}
-
 #run dertSeqNewInputs
 dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess,
                  newSequenceFileXML = newSequenceFileXML, userDescBool = TRUE, userDesc = userDesc)
@@ -152,11 +166,9 @@ DARTprocess <- DARTprocess <- c('directions', 'maket')
 To create the sequence files, dart-sequence is run. To avoid the possiblilty of infinite loops, a timeout is set for dart-sequence. This 'maxTime' is set by default to 120 seconds however if you are creating large number of sequences then you may wish to increase this time my settin maxTime to 180 for example. 
 
 ```{r eval=FALSE}
-
 #run dertSeqNewInputs
 dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess,
                  maxTime = 180)
-
 ```
 
 This time 24 sequences have been created- this is the product of the length of arguments in group 1
