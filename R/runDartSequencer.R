@@ -29,9 +29,9 @@ runDartSequencer <- function(newSequenceFileXML, simName, DARTprogDir, maxTime) 
     }
 
   if (os == "mac" | os == "unix") {
-    # start dart process for windows
+    # start dart process for mac or unix
     dartSequenceDir <- paste0(c(DARTprogDir, 'tools', 'linux'), collapse = '/')
-    p <- process$new('dart-sequence.sh', args = c(l2FileName, '-start', '-jobs'),
+    p <- process$new(command = './dart-sequence.sh', args = c(l2FileName, '-start', '-jobs'),
                      wd = dartSequenceDir, stderr = '|')
   }
 
