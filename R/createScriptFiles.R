@@ -8,13 +8,16 @@ createShellScripts <- function(DARTprogDir, newDir, DARTprocess) {
 
   #first and last lines
   line1 <- '#!/bin/sh'
-  linen <- '##end script'
 
   #loop over all sequence folder
   for (i in seqFiles) {
     # get path to file and path to file in shell
     seqFilePath <- paste0(newDir,  '/' , i)
     seqFilePath2 <- paste0(newDir2,  '/' , i)
+
+    #get cd line
+    cd <- paste('cd', DARTprogDir, sep = ' ')
+    cd2 <- paste0(cd, '/tools/linux/;')
 
     #create new file
     newFile <- paste0(seqFilePath, '/', i, '.sh')
@@ -25,15 +28,14 @@ createShellScripts <- function(DARTprogDir, newDir, DARTprocess) {
     cat('\n',file = newFile, append = TRUE)
     for (ii in DARTprocess){
       # create the first dart process dir
-      DARTprocessName <- paste0('dart', '-', ii, '.sh')
-      DARTprocessDir <- paste0(DARTprogDir, '/tools/linux/',DARTprocessName )
+      DARTprocessName <- paste0('./dart', '-', ii, '.sh')
+      DARTprocessDir <- paste(cd2, DARTprocessName, sep = ' ')
 
       # write new line
       line <- paste(DARTprocessDir, seqFilePath2, sep = ' ')
       cat(line, file = newFile, append = TRUE)
       cat('\n\n',file = newFile, append = TRUE)
     }
-    cat(linen,file = newFile, append = TRUE)
     close(fileConn)
   }
 }
