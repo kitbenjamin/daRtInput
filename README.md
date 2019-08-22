@@ -22,8 +22,6 @@ You can install the development version from
 ``` r
 # install.packages("devtools")
 devtools::install_github("kitbenjamin/daRtInput")
-#> Skipping install of 'daRtInput' from a github remote, the SHA1 (f7bdf6a8) has not changed since last install.
-#>   Use `force = TRUE` to force installation
 ```
 
 ## Example 1: change a property and create a sequence
@@ -43,7 +41,7 @@ directory on your system.
 
 ``` r
 #define path to DART directory
-DARTprogDir <-  'C:/Users/<username>/DART'
+DARTprogDir <-  'C:/Users/kitbe/DART'
 
 # name of your simulation
 simName <- 'cesbio'
@@ -59,6 +57,12 @@ very long names.
 ``` r
 # get group and property names
 getInputNames(simName, sequenceFileXML, DARTprogDir)
+#> Loading required package: xml2
+#> $group1
+#> [1] "Maket.Scene.CellDimensions.x"
+#> 
+#> $group2
+#> [1] "Maket.Scene.CellDimensions.z"
 ```
 
 Now lets define what we would like to change in the
@@ -166,6 +170,11 @@ sequenceFileXML <- 'sequence2.xml'
 ``` r
 # view the new inputs
 getInputNames(simName, sequenceFileXML, DARTprogDir)
+#> $group1
+#> [1] "Maket.Scene.CellDimensions.x" "Maket.Scene.CellDimensions.z"
+#> 
+#> $group2
+#> [1] "Coeff_diff.Temperatures.ThermalFunction.meanT"
 ```
 
 Notice two properties in group1- horizontal and vertical cell dimensions

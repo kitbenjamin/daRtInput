@@ -25,7 +25,7 @@ This readme cannot be run through GitHub but the xml files are availble from man
 
 You can install the development version from [GitHub](https://github.com/) with:
 
-``` {r warnings=FALSE}
+``` {r warnings=FALSE, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("kitbenjamin/daRtInput")
 ```
@@ -41,7 +41,7 @@ Define name of your simulation and the sequence xml file (created using the 'Seq
 the DART directory on your system.
 ```{r directories}
 #define path to DART directory
-DARTprogDir <-  'C:/Users/<username>/DART'
+DARTprogDir <-  'C:/Users/kitbe/DART'
 
 # name of your simulation
 simName <- 'cesbio'
@@ -52,7 +52,7 @@ sequenceFileXML <- 'sequence1.xml'
 
 We can see what properties are available in the xml file and what group they are in using the getInputNames function. 
 Unfortunately dart uses very long names.
-```{r eval=FALSE}
+```{r}
 # get group and property names
 getInputNames(simName, sequenceFileXML, DARTprogDir)
 ```
@@ -129,7 +129,7 @@ This time using sequence 2
 sequenceFileXML <- 'sequence2.xml'
 ```
 
-```{r eval=FALSE}
+```{r }
 # view the new inputs
 getInputNames(simName, sequenceFileXML, DARTprogDir)
 ```
