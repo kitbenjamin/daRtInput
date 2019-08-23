@@ -63,9 +63,9 @@ runDartSequencer <- function(newSequenceFileXML, simName, DARTprogDir, maxTime) 
   start <- Sys.time()
   while (!all(file.exists(reqiredFileNames))) {
     Sys.sleep(1)
-    #if( as.numeric((Sys.time()-start), units = 'secs') > maxTime) {
-     # stop( 'maxTime surpassed, process ended')
-      #p$kill_tree() }
+    if( as.numeric((Sys.time()-start), units = 'secs') > maxTime) {
+      stop( 'maxTime surpassed, process ended')
+      p$kill_tree() }
   }
 
   #end process
