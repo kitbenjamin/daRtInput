@@ -1,4 +1,4 @@
-moveFilescreateScripts <- function(simName, DARTprogDir, newSequenceFileXML, DARTprocess, userDescBool, userDesc){
+moveFilescreateScripts <- function(simName, DARTprogDir, newSequenceFileXML, DARTprocess,dbFullPath,  userDescBool, userDesc){
   # moves filles from simulation folder to new folder
 
   #path to the simulation folder
@@ -34,4 +34,10 @@ moveFilescreateScripts <- function(simName, DARTprogDir, newSequenceFileXML, DAR
   if (os == 'win') {
     createBatScripts(DARTprogDir, newDir, DARTprocess)
   }
+
+  dbName <- paste0(simName, '_JTT.db')
+  newDirSp <- strsplit(newDir, '/')[[1]]
+  newDirm1 <- paste(newDirSp[1:length(newDirSp) -1], collapse = '/')
+  dbFullPath <- paste0(newDirm1, '/', dbName )
+  createJTT(dbFullPath, simName, newDir)
 }
