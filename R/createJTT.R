@@ -45,7 +45,7 @@ createJTT <- function(dbFullPath, simName, newDir){
     scriptName <- paste0(i,'.sh')
 
     RSQLite::dbSendQuery(conn = dbConn, paste('INSERT INTO', simName, '(sequenceIndex, scriptDirectory, scriptName)',
-                                              'VALUES(', index, ', "', scriptDir , '"' , ', "', scriptName, '")'))
+                                              'VALUES(', index, ', "', seqFilePath , '"' , ', "', scriptName, '")'))
   }
 
   # fill exitstatus with 999
