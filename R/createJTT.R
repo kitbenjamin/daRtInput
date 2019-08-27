@@ -31,6 +31,7 @@ createJTT <- function(dbFullPath, simName, newDir){
                        statement = paste("CREATE TABLE", simName,
                                          "(sequenceIndex INTEGER,
                                      scriptDirectory VARCHAR,
+                                     scriptName VARCHAR,
                                      exitStatus INTEGER,
                                      startTime VARCHAR,
                                      endTime VARCHAR)"))
@@ -41,10 +42,10 @@ createJTT <- function(dbFullPath, simName, newDir){
     index <- sindex[length(sindex)]
 
     seqFilePath <- paste0(newDir,  '/' , i)
-    scriptDir <- paste0( newDir, '/', i, '.sh')
+    scriptName <- paste0(i,'.sh')
 
-    RSQLite::dbSendQuery(conn = dbConn, paste('INSERT INTO', simName, '(sequenceIndex, scriptDirectory)',
-                                              'VALUES(', index, ', "', scriptDir , '"' , ')'))
+    RSQLite::dbSendQuery(conn = dbConn, paste('INSERT INTO', simName, '(sequenceIndex, scriptDirectory, scriptName)',
+                                              'VALUES(', index, ', "', scriptDir , '"' , ', "', scriptName, '")'))
   }
 
   # fill exitstatus with 999
