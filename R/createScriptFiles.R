@@ -25,7 +25,7 @@ createShellScripts <- function(DARTprogDir, newDir, DARTprocess) {
 
     #write first line
     cat(line1, file = fileConn)
-    cat('\n',file = newFile, append = TRUE)
+    cat('\n\n',file = newFile, append = TRUE)
     for (ii in DARTprocess){
       # create the first dart process dir
       DARTprocessName <- paste0('./dart', '-', ii, '.sh')
