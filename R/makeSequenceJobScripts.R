@@ -23,5 +23,5 @@ makeSequenceJobScripts <- function(simName,sequenceFileXML,  DARTprogDir, DARTpr
   runDartSequencer(sequenceFileXML, simName, DARTprogDir, maxTime)
 
   #move files from sequence folder and create an executable script file
-  moveFilescreateScripts(simName, DARTprogDir, SequenceFileXML, DARTprocess,dbFullPath, userDescBool, userDesc)
+  moveFilescreateScripts(simName, DARTprogDir, DARTprocess, userDescBool, userDesc)
 }

@@ -1,5 +1,11 @@
-createJTT <- function(dbFullPath, simName, seqFiles){
+createJTT <- function(dbFullPath, simName, newDir){
   #check if the database and the table identifying the simName exists
+  #path to the simulation folder
+  simPath <- paste0(c(DARTprogDir, 'user_data', 'simulations', simName), collapse = '/')
+  # get all files in sequence folder
+  seqDir <- paste0(simPath, '/sequence')
+  seqFiles <- list.files(seqDir)
+
   #try to connect 10 times
   dbExists <- file.exists(dbFullPath)
   if(dbExists) return(NULL)

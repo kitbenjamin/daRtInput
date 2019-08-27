@@ -1,4 +1,4 @@
-moveFilescreateScripts <- function(simName, DARTprogDir, newSequenceFileXML, DARTprocess,  userDescBool, userDesc){
+moveFilescreateScripts <- function(simName, DARTprogDir, DARTprocess,  userDescBool, userDesc){
   # moves filles from simulation folder to new folder
 
   #path to the simulation folder
