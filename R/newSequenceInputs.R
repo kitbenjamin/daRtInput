@@ -24,11 +24,10 @@
 #' @return A sequence of files that together can be used input all propertyArgs into a DART simulation.
 #' @export
 #'
-dartSeqNewInputs <- function(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs,
-                             DARTprogDir, DARTprocess, newSequenceFileXML = sequenceFileXML, maxTime = 120,
-                             userDescBool = FALSE, userDesc = NULL){
+dartSeqNewInputs <- function(simName, sequenceFileXML, propertyArgs,DARTprogDir, DARTprocess,
+                             newSequenceFileXML = sequenceFileXML, maxTime = 120, userDescBool = FALSE, userDesc = NULL){
   # inputs are written to xml file, newSequenceFileXML
-  editSequence(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, newSequenceFileXML)
+  editSequence(simName, sequenceFileXML, propertyArgs, DARTprogDir, newSequenceFileXML)
 
   makeSequenceJobScripts(simName, newSequenceFileXML, DARTprogDir, DARTprocess,  maxTime, userDescBool, userDesc)
 }

@@ -5,6 +5,9 @@ runDartSequencer <- function(newSequenceFileXML, simName, DARTprogDir, maxTime) 
   require(processx)
   require(R.utils)
 
+  #check a valid process is entred
+  checkProcess(DARTprocess)
+
   #required paths
   simPath <- paste0(c(DARTprogDir, 'user_data', 'simulations', simName), collapse = '/')
   newsequenceXMLpath <- paste0(c(simPath, newSequenceFileXML),  collapse = '/')

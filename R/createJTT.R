@@ -1,11 +1,8 @@
-createJTT <- function(dbFullPath, simName, newDir){
+createJTT <- function(dbFullPath, simName, newDir, DARTprogDir){
   #check if the database and the table identifying the simName exists
-  #path to the simulation folder
-  simPath <- paste0(c(DARTprogDir, 'user_data', 'simulations', simName), collapse = '/')
   # get all files in sequence folder
-  seqDir <- paste0(simPath, '/sequence')
+  seqDir <- paste0(c(DARTprogDir, 'user_data', 'simulations', simName, 'sequence'), collapse = '/')
   seqFiles <- list.files(seqDir)
-
   #try to connect 10 times
   dbExists <- file.exists(dbFullPath)
   if(dbExists) return(NULL)
@@ -23,9 +20,6 @@ createJTT <- function(dbFullPath, simName, newDir){
     Sys.sleep(1)
   }
 
-  # get all the sequence file names
-  seqFiles <- list.files(newDir)
-
   #create the table
   RSQLite::dbSendQuery(conn = dbConn,
                        statement = paste("CREATE TABLE", simName,
@@ -36,13 +30,20 @@ createJTT <- function(dbFullPath, simName, newDir){
                                      startTime VARCHAR,
                                      endTime VARCHAR)"))
 
+
+  os <- get_os()
   # add the index and file path
   for (i in seqFiles){
     sindex <- strsplit(i, '_')[[1]]
     index <- sindex[length(sindex)]
 
     seqFilePath <- paste0(newDir,  '/' , i)
-    scriptName <- paste0(i,'.sh')
+
+    if (os == 'mac' | os == 'unix'){
+      scriptName <- paste0(i,'.sh')
+    } else if (os == 'win') {
+      scriptName <- paste0(i,'.bat')
+    }
 
     RSQLite::dbSendQuery(conn = dbConn, paste('INSERT INTO', simName, '(sequenceIndex, scriptDirectory, scriptName)',
                                               'VALUES(', index, ', "', seqFilePath , '"' , ', "', scriptName, '")'))
@@ -54,5 +55,3 @@ createJTT <- function(dbFullPath, simName, newDir){
   #disconnect
   RSQLite::dbDisconnect(dbConn)
 }
-
-

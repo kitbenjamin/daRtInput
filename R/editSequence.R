@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-editSequence <- function(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, newSequenceFileXML) {
+editSequence <- function(simName, sequenceFileXML, propertyArgs, DARTprogDir, newSequenceFileXML) {
   #for each row in propertyArgs, change the arg in the XML file
   require(xml2)
 
@@ -33,9 +33,16 @@ editSequence <- function(simName, sequenceFileXML, groupNames, propertyNames, pr
   sequenceXML <- xml2::read_xml(x = sequenceXMLpath)
 
   #create a dataframe of new arguments
-  if (is.list(propertyArgs)){
-    newArgsStr <- unlist(lapply( propertyArgs, paste0, collapse = ';'))
-  } else {newArgsStr <- paste0(propertyArgs, collapse = ';')}
+  propertyNames <- names(propertyArgs)
+  newArgsStr <- unlist(lapply( propertyArgs, paste0, collapse = ';'), use.names = FALSE)
+
+  namms <- names(groupVar)
+  groupNames <- c()
+  for (i in propertyNames){
+    for (ii in namms){
+      if (i %in% groupVar[[ii]]) {
+        groupNames <- c(groupNames, ii)}}}
+
   newInputs <- data.frame('Groupnames' = groupNames, 'Propertynames' = propertyNames, 'Newargs' = newArgsStr)
 
   # make all the specifed changes

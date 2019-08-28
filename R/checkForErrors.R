@@ -1,9 +1,9 @@
 
-checkErrors <- function(groupVar, propertyName, groupName, newArg ,sequenceXML){
+checkErrors <- function(groupVar, propertyName, groupName, newArg, sequenceXML){
   # checks for errors
 
   #find available groups and properties
-  availableProperties <- unlist(groupVar, use.names = F)
+  availableProperties <- unlist(lapply(groupVar, function(x){x[, "propertyNames"]}), use.names = F)
   availableGroups <- names(groupVar)
 
   #warnings
@@ -16,16 +16,25 @@ checkErrors <- function(groupVar, propertyName, groupName, newArg ,sequenceXML){
     stop('groupName ', groupName, ' not available. Please select from: ', paste(availableGroups, collapse = ' , '))
   }
   # is the property in the group
-  if ((propertyName %in% groupVar[[as.character(groupName)]]) == FALSE) {
+  if ((propertyName %in% groupVar[[as.character(groupName)]][, "propertyNames"]) == FALSE) {
     group_property = list()
     for (i in 1:length(groupVar)) {
-      if (propertyName %in% groupVar[[i]]) {
+      if (propertyName %in% groupVar[[i]][, "propertyNames"]) {
         group_property['groups'] <- names(groupVar[i])
       }
     }
-    stop('Property: ', propertyName, ' not in ', groupName, '. Groups where property is present: ',
+    stop('Property: ', propertyName, ' not in ', groupName, '. Group where property is present: ',
          paste(group_property$groups, collapse = ', '))
   }
+
+  #if linear is it length 3
+  groupVarGroup <- groupVar[[as.character(groupName)]]
+  if ((groupVarGroup[groupVarGroup[, "propertyNames"] == propertyName, 2] == 'linear') &
+      (length(strsplit(newArg, ';')[[1]]) != 3)){
+    stop('Argument of type "linear" must be of length 3 (start, increment, number of args). Current length: ',
+         length(strsplit(newArg, ';')[[1]]) )
+  }
+
 
   LUTvalBool <- isLUTselected(sequenceXML)
   if (LUTvalBool == TRUE) {
@@ -55,3 +64,13 @@ checkArgLen <- function(sequenceXML){
     }
   }
 }
+
+
+checkProcess <- function(DARTprocess){
+  valProcesses <- c('full', 'only', 'directions', 'maket', 'vegetation', 'phase' )
+  if ( !(all(DARTprocess %in% valProcesses))) {
+    stop('Not a valid process, please choose from: ', paste(valProcesses, collapse = ', '))
+  }
+}
+
+

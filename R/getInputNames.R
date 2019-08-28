@@ -27,7 +27,8 @@ getInputNames <- function(simName, sequenceFileXML, DARTprogDir, print = TRUE) {
     descriptors <- xml_find_all(i, 'DartSequencerDescriptorEntry')
     propertyNames <- xml_attr(descriptors, 'propertyName')
 
-    groupVar[[groupName]] <- propertyNames
+    type <- xml_attr(descriptors, 'type')
+    groupVar[[groupName]] <- cbind(propertyNames, type)
   }
   if (print == TRUE) {
     return(print(groupVar))

@@ -45,6 +45,7 @@ createBatScripts <- function(DARTprogDir, newDir, DARTprocess) {
 
   #all folders batch must be created for
   seqFiles <- list.files(newDir)
+  seqFiles <- seqFiles[!grepl('.db',seqFiles )]
 
   # split to get required directory to put into batch file
   newDir2 <- getND2_win(newDir)

@@ -1,4 +1,5 @@
-changePropertyInput <- function(newInputs, groupVar, sequenceFileXML, sequenceXML, sequenceXMLpath, newSequenceFileXML, newsequenceXMLpath) {
+changePropertyInput <- function(newInputs, groupVar, sequenceFileXML, sequenceXML, sequenceXMLpath, newSequenceFileXML,
+                                newsequenceXMLpath) {
   # Replaces the argument with newArg and saves file
   require(xml2)
 

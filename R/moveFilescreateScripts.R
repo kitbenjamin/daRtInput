@@ -6,16 +6,21 @@ moveFilescreateScripts <- function(simName, DARTprogDir, DARTprocess,  userDescB
 
   #create directory to be moved to
   if (userDescBool == FALSE) {
-    newDir <- paste0(simPath, '/daRtinput', '/', strftime(Sys.time(), format = "%Y_%j_%H.%M.%S"), '/', simName )
+    newDir <- paste0(simPath, '/daRtinput', '/', strftime(Sys.time(), format = "%Y%j_%H%M%S"))
     dir.create(newDir, recursive = TRUE)
   } else if (userDescBool == TRUE) {
     if (is.null(userDesc )) {
       stop('userDesc must be a string')
     }
     else {
-    newDir <- paste0(simPath, '/daRtinput', '/', userDesc,  '/', simName)
+    newDir <- paste0(simPath, '/daRtinput', '/', userDesc)
     dir.create(newDir, recursive = TRUE)}
   } else { stop( 'userDescBool must be a boolean' )}
+
+  #create job tracking table
+  dbName <- paste0(simName, '_JTT.db')
+  dbFullPath <- paste0(newDir, '/', dbName )
+  createJTT(dbFullPath, simName, newDir, DARTprogDir)
 
   # get all files in sequence folder
   seqDir <- paste0(simPath, '/sequence')
@@ -35,9 +40,7 @@ moveFilescreateScripts <- function(simName, DARTprogDir, DARTprocess,  userDescB
     createBatScripts(DARTprogDir, newDir, DARTprocess)
   }
 
-  dbName <- paste0(simName, '_JTT.db')
-  newDirSp <- strsplit(newDir, '/')[[1]]
-  newDirm1 <- paste(newDirSp[1:length(newDirSp) -1], collapse = '/')
-  dbFullPath <- paste0(newDirm1, '/', dbName )
-  createJTT(dbFullPath, simName, newDir)
+  #delete sequences folder
+  seqPath <- paste0(c(DARTprogDir, 'user_data', 'simulations', simName, 'sequence'), collapse = '/')
+  unlink(seqPath)
 }

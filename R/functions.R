@@ -9,7 +9,12 @@ numberParallelThreads <- function (sequenceXML) {
   for (i in 1:length(groups)) {
     x <- xml2::xml_find_all(groups[i], 'DartSequencerDescriptorEntry')
     args <- (xml2::xml_attr(x, 'args'))
-    lensArgs <- unique(lengths(strsplit(args, ';')))
+    if (xml2::xml_attr(x, 'type') == 'enumerate'){
+      lensArgs <- unique(lengths(strsplit(args, ';')))
+    } else if (xml2::xml_attr(x, 'type') == 'linear'){
+      spl <-  strsplit(args, ';')[[1]]
+      lensArgs <- as.integer(spl[length(spl)])
+    }
     groupLen <- c(groupLen, lensArgs)
   }
   nParThre <- as.character(prod(groupLen))
