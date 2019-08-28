@@ -13,7 +13,7 @@ numberParallelThreads <- function (sequenceXML) {
       lensArgs <- unique(lengths(strsplit(args, ';')))
     } else if (xml2::xml_attr(x, 'type') == 'linear'){
       spl <-  strsplit(args, ';')[[1]]
-      lensArgs <- as.integer(spl[length(spl)])
+      lensArgs <- as.integer(unique(spl[length(spl)]))
     }
     groupLen <- c(groupLen, lensArgs)
   }

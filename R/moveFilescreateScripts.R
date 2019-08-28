@@ -42,5 +42,5 @@ moveFilescreateScripts <- function(simName, DARTprogDir, DARTprocess,  userDescB
 
   #delete sequences folder
   seqPath <- paste0(c(DARTprogDir, 'user_data', 'simulations', simName, 'sequence'), collapse = '/')
-  unlink(seqPath)
+  unlink(seqPath, recursive = TRUE)
 }
