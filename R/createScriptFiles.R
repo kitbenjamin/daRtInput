@@ -3,11 +3,13 @@ createShellScripts <- function(DARTprogDir, newDir, DARTprocess) {
 
   #all folders shell must be created for
   seqFiles <- list.files(newDir)
+  seqFiles <- seqFiles[!grepl('.db',seqFiles )]
+
   # split to get required directory to put into batch file
   newDir2 <- getND2_lin(newDir)
 
   #first and last lines
-  line1 <- '#!/bin/sh'
+  line1 <- '#!/bin/bash'
 
   #loop over all sequence folder
   for (i in seqFiles) {
