@@ -5,7 +5,7 @@
 \title{makeSequenceJobScripts}
 \usage{
 makeSequenceJobScripts(simName, sequenceFileXML, DARTprogDir, DARTprocess,
-  maxTime, userDescBool, userDesc)
+  maxTime = 120, userDescBool = FALSE, userDesc = NULL)
 }
 \arguments{
 \item{simName}{Name of your simulation.}

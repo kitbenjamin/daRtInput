@@ -4,9 +4,8 @@
 \alias{dartSeqNewInputs}
 \title{dartSeqNewInputs}
 \usage{
-dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames,
-  propertyArgs, DARTprogDir, DARTprocess,
-  newSequenceFileXML = sequenceFileXML, maxTime = 120,
+dartSeqNewInputs(simName, sequenceFileXML, propertyArgs, DARTprogDir,
+  DARTprocess, newSequenceFileXML = sequenceFileXML, maxTime = 120,
   userDescBool = FALSE, userDesc = NULL)
 }
 \arguments{
@@ -14,12 +13,8 @@ dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames,
 
 \item{sequenceFileXML}{Name of the xml file containing property(s) of which the arguments you would like to change.}
 
-\item{groupNames}{Name(s) of the group in which the property whos args you would like to define is}
-
-\item{propertyNames}{Name(s) of the property which you would like to define the DART input for.}
-
-\item{propertyArgs}{Required property input into DART simulation. This should be a vector if changing one arg or a list of vectors
-if changing multiple.}
+\item{propertyArgs}{Required inputs into DART simulation. This should be a list with the propertyName as the name and a vector of values as
+the argument. (e.g:  list("Maket.Scene.CellDimensions.x" = c(1, 2, 3, 4, 5, 6), "Maket.Scene.CellDimensions.z" = c(2, 4, 6)))}
 
 \item{DARTprogDir}{Path to the 'DART' directory e.g 'C:/User/<username>/DART'.}
 

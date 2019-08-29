@@ -2,13 +2,23 @@
 % Please edit documentation in R/getInputNames.R
 \name{getInputNames}
 \alias{getInputNames}
-\title{Title}
+\title{getInputNames}
 \usage{
 getInputNames(simName, sequenceFileXML, DARTprogDir, print = TRUE)
 }
 \arguments{
-\item{print}{}
+\item{simName}{Name Name of your simulation.}
+
+\item{sequenceFileXML}{Name of the xml file containing property(s) of which the arguments you would like to change.}
+
+\item{DARTprogDir}{Path to the 'DART' directory e.g 'C:/User/<username>/DART'.}
+
+\item{print}{Whether to print the output.}
+}
+\value{
+A list containing the properties within sequenceFileXML and what group they are in. It also shows whether the argument type is 'linear'
+or 'enumerate'.
 }
 \description{
-Title
+Find what properties are available to be changed in the sequenceFileXML.
 }

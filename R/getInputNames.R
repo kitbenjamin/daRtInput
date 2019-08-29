@@ -1,9 +1,14 @@
-#' Title
+#' getInputNames
 #'
-#' @param inputPath
-#' @param print
+#' Find what properties are available to be changed in the sequenceFileXML.
 #'
-#' @return
+#' @param simName Name Name of your simulation.
+#' @param sequenceFileXML Name of the xml file containing property(s) of which the arguments you would like to change.
+#' @param DARTprogDir Path to the 'DART' directory e.g 'C:/User/<username>/DART'.
+#' @param print Whether to print the output.
+#'
+#' @return A list containing the properties within sequenceFileXML and what group they are in. It also shows whether the argument type is 'linear'
+#' or 'enumerate'.
 #' @export
 #'
 
