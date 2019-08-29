@@ -9,9 +9,9 @@ numberParallelThreads <- function (sequenceXML) {
   for (i in 1:length(groups)) {
     x <- xml2::xml_find_all(groups[i], 'DartSequencerDescriptorEntry')
     args <- (xml2::xml_attr(x, 'args'))
-    if (xml2::xml_attr(x, 'type') == 'enumerate'){
+    if (unique(xml2::xml_attr(x, 'type')) == 'enumerate'){
       lensArgs <- unique(lengths(strsplit(args, ';')))
-    } else if (xml2::xml_attr(x, 'type') == 'linear'){
+    } else if (unique(xml2::xml_attr(x, 'type')) == 'linear'){
       spl <-  strsplit(args, ';')[[1]]
       lensArgs <- as.integer(unique(spl[length(spl)]))
     }
@@ -95,13 +95,13 @@ isLUTselected <- function(sequenceXML){
 
 getND2_lin <- function (newDir) {
   newDirSplit <- strsplit(newDir, '/')[[1]]
-  newDir2 <- paste0(newDirSplit[(length(newDirSplit) - 3) :length(newDirSplit)], collapse = '/')
+  newDir2 <- paste0(newDirSplit[(length(newDirSplit) - 2) :length(newDirSplit)], collapse = '/')
   return(newDir2)
 }
 
 getND2_win <- function (newDir) {
   newDirSplit <- strsplit(newDir, '/')[[1]]
-  newDir2 <- paste0(newDirSplit[(length(newDirSplit) - 3) :length(newDirSplit)], collapse = '\\')
+  newDir2 <- paste0(newDirSplit[(length(newDirSplit) - 2) :length(newDirSplit)], collapse = '\\')
   return(newDir2)
 }
 
