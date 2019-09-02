@@ -73,7 +73,7 @@ runDartSequencer <- function(newSequenceFileXML, simName, DARTprogDir, maxTime) 
 
   #end process
   p$kill_tree()
-  message('Sequence folders configured.')
+  message('Sequence folders configured. Now changing file locations...')
 }
 
 
