@@ -50,7 +50,7 @@ createJTT <- function(dbFullPath, simName, newDir, DARTprogDir){
   }
 
   # fill exitstatus with 999
-  RSQLite::dbSendQuery(conn = dbConn, paste('UPDATE', simName, 'SET exitStatus = 999'))
+  RSQLite::dbSendQuery(conn = dbConn, paste('UPDATE', simName, 'SET exitStatus = -2'))
 
   #disconnect
   RSQLite::dbDisconnect(dbConn)
