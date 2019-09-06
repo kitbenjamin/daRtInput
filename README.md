@@ -59,26 +59,19 @@ very long names.
 getInputNames(simName, sequenceFileXML, DARTprogDir)
 #> Loading required package: xml2
 #> $group1
-#> [1] "Maket.Scene.CellDimensions.x"
+#>      propertyNames                  type       
+#> [1,] "Maket.Scene.CellDimensions.x" "enumerate"
 #> 
 #> $group2
-#> [1] "Maket.Scene.CellDimensions.z"
+#>      propertyNames                  type       
+#> [1,] "Maket.Scene.CellDimensions.z" "enumerate"
 ```
 
-Now lets define what we would like to change in the
-xml.
+Now lets define what we would like to change in the xml.
 
 ``` r
-#define which property you would like to change: here we are changing the horizontal cell dimensions 
-propertyNames <- "Maket.Scene.CellDimensions.x"
-
-# define which group the property is in. Be careful to ensure that the properties you would 
-# like to change are within this group.
-groupNames <- "group1"
-
-# define the input arguments: which horizontal cell dimensions will be input into the model? This should be 
-# in the form of a vector of any length.
-propertyArgs <- c(1.5, 3, 4.5, 6)
+# define what properties to change and what to change them to 
+propertyArgs <- list("Maket.Scene.CellDimensions.x" = c(1.5, 3, 4.5, 6))
 ```
 
 Also we must define what DART process we want to use the sequenced files
@@ -95,7 +88,7 @@ be exectued to run the sequence simulation.
 
 ``` r
 #run dertSeqNewInputs
-dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess)
+dartSeqNewInputs(simName, sequenceFileXML, propertyArgs, DARTprogDir, DARTprocess)
 ```
 
 The sequence1.xml has been edited such that the property
@@ -107,18 +100,18 @@ sequence file is a script file (shell or batch depending on operting
 system), which is capable of running the sequence file through
 dart-maket.
 
-In summary, dartSeqNewInputs essentially carries out two functions: 1.
-editing the xml file that defines the arguments input into DART 2.
+In summary, dartSeqNewInputs essentially carries out two processes: 1.
+editing the xml file that defines the arguments input into DART. 2.
 creates sequenced simulation files for each combination of arguments and
-a script file that can execute the simulation folder for the given DART
-process.
+creates a script file that can execute the simulation folder for the
+given DART process.
 
-These two functions can be carried out seperately. The fist
+These two processes can be carried out seperately. The fist
 function:
 
 ``` r
 #edit sequence xml file. Note that as newSequenceFileXML is not defined, sequenceFileXML will be overwritten
-editSequence(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir)
+editSequence(simName, sequenceFileXML, propertyArgs, DARTprogDir)
 ```
 
 The second function:
@@ -131,16 +124,11 @@ makeSequenceJobScripts(simName, sequenceFileXML,  DARTprogDir, DARTprocess)
 ## EXAMPLE 2: change multiple properties
 
 This time we are changing arguments for multiple propertys. we will also
-choose to run
-dart-phase.
+choose to run dart-phase.
 
 ``` r
-# changing the horizontal and vertical cell dimensions and their corresponding groups
-propertyNames <- c("Maket.Scene.CellDimensions.x", "Maket.Scene.CellDimensions.z")
-groupNames <- c("group1", "group2")
-
 # define the input arguments as a list of vectors
-propertyArgs <- list(c(1, 2, 3, 4, 5, 6), c(2, 4, 6))
+propertyArgs <- list("Maket.Scene.CellDimensions.x" = c(1, 2, 3, 4, 5, 6), "Maket.Scene.CellDimensions.z" = c(2, 4, 6))
 
 #run dart-phase
 DARTprocess <- 'phase'
@@ -162,13 +150,13 @@ sequence files (as opposed to the datetime).
 userDesc <- 'example2'
 ```
 
-This time when we run the function we must ensure that userDescBool is
-set to TRUE so that userDesc is used instead of datetime.
+This time sequenced folders will be within a directory named userDesc
+instead of datetime.
 
 ``` r
 #run dertSeqNewInputs
-dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess,
-                 newSequenceFileXML = newSequenceFileXML, userDescBool = TRUE, userDesc = userDesc)
+dartSeqNewInputs(simName, sequenceFileXML, propertyArgs, DARTprogDir, DARTprocess,
+                 newSequenceFileXML = newSequenceFileXML, userDesc = userDesc)
 ```
 
 This time, a new xml file named ‘sequence1\_ex2.xml’ has been generated.
@@ -191,25 +179,24 @@ sequenceFileXML <- 'sequence2.xml'
 # view the new inputs
 getInputNames(simName, sequenceFileXML, DARTprogDir)
 #> $group1
-#> [1] "Maket.Scene.CellDimensions.x" "Maket.Scene.CellDimensions.z"
+#>      propertyNames                  type       
+#> [1,] "Maket.Scene.CellDimensions.x" "enumerate"
+#> [2,] "Maket.Scene.CellDimensions.z" "enumerate"
 #> 
 #> $group2
-#> [1] "Coeff_diff.Temperatures.ThermalFunction.meanT"
+#>      propertyNames                                   type       
+#> [1,] "Coeff_diff.Temperatures.ThermalFunction.meanT" "enumerate"
 ```
 
 Notice two properties in group1- horizontal and vertical cell dimensions
 and one property in group2- mean temperature. Properties in the the same
-group are sequenced simulataniously so must have the same
-length.
+group are sequenced simulataniously so must have the same length.
 
 ``` r
-# changing the horizontal and vertical cell dimensions and their corresponding groups
-propertyNames <- c("Maket.Scene.CellDimensions.x", "Maket.Scene.CellDimensions.z",
-                   "Coeff_diff.Temperatures.ThermalFunction.meanT")
-groupNames <- c("group1","group1",  "group2")
-
 # define the input arguments as a list of vectors
-propertyArgs <- list(c(1, 2, 3, 4), c(1, 2, 3, 4), c(273, 278, 283, 288, 293, 298))
+propertyArgs <- list("Maket.Scene.CellDimensions.x" = c(1, 2, 3, 4), 
+                     "Maket.Scene.CellDimensions.z" = c(1, 2, 3, 4), 
+                     "Coeff_diff.Temperatures.ThermalFunction.meanT" = c(273, 278, 283, 288, 293, 298))
 ```
 
 It’s also possible to run multiple processes.
@@ -227,8 +214,7 @@ settin maxTime to 180 for example.
 
 ``` r
 #run dertSeqNewInputs
-dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess,
-                 maxTime = 180)
+dartSeqNewInputs(simName, sequenceFileXML, groupNames, propertyNames, propertyArgs, DARTprogDir, DARTprocess, maxTime = 180)
 ```
 
 This time 24 sequences have been created- this is the product of the

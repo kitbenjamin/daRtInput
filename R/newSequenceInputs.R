@@ -20,9 +20,9 @@
 #' @export
 #'
 dartSeqNewInputs <- function(simName, sequenceFileXML, propertyArgs,DARTprogDir, DARTprocess,
-                             newSequenceFileXML = sequenceFileXML, maxTime = 120, userDescBool = FALSE, userDesc = NULL){
+                             newSequenceFileXML = sequenceFileXML, maxTime = 120, userDesc = NULL){
   # inputs are written to xml file, newSequenceFileXML
   editSequence(simName, sequenceFileXML, propertyArgs, DARTprogDir, newSequenceFileXML)
 
-  makeSequenceJobScripts(simName, newSequenceFileXML, DARTprogDir, DARTprocess,  maxTime, userDescBool, userDesc)
+  makeSequenceJobScripts(simName, newSequenceFileXML, DARTprogDir, DARTprocess,  maxTime, userDesc)
 }

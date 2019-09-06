@@ -35,7 +35,12 @@ checkErrors <- function(groupVar, propertyName, groupName, newArg, sequenceXML){
          length(strsplit(newArg, ';')[[1]]) )
   }
 
+  #ensure .xml is at the end of file name
+  if (!grepl('.xml' ,newSequenceFileXML)) {
+    stop( 'newSequenceFileXML must be an xml file')
+  }
 
+  #check id generate LUT was selected
   LUTvalBool <- isLUTselected(sequenceXML)
   if (LUTvalBool == TRUE) {
     warning( 'Generate LUT is selected but a LUT cannot be generated. Please deselect generate LUT in the DART GUI.')

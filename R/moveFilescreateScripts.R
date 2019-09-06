@@ -1,21 +1,19 @@
-moveFilescreateScripts <- function(simName, DARTprogDir, DARTprocess,  userDescBool, userDesc){
+moveFilescreateScripts <- function(simName, DARTprogDir, DARTprocess, userDesc){
   # moves filles from simulation folder to new folder
 
   #path to the simulation folder
   simPath <- paste0(c(DARTprogDir, 'user_data', 'simulations', simName), collapse = '/')
 
   #create directory to be moved to
-  if (userDescBool == FALSE) {
+  if (is.null(userDesc)){
     newDir <- paste0(simPath, '/daRtinput', '/', strftime(Sys.time(), format = "%Y%j_%H%M%S"))
     dir.create(newDir, recursive = TRUE)
-  } else if (userDescBool == TRUE) {
-    if (is.null(userDesc )) {
-      stop('userDesc must be a string')
-    }
-    else {
+  } else {
     newDir <- paste0(simPath, '/daRtinput', '/', userDesc)
+    if (!(dir.exists(newDir))){
     dir.create(newDir, recursive = TRUE)}
-  } else { stop( 'userDescBool must be a boolean' )}
+  }
+
 
   #create job tracking table
   dbName <- paste0(simName, '_JTT.db')

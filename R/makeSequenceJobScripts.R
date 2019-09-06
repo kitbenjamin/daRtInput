@@ -16,12 +16,11 @@
 #' process(es).
 #' @export
 #'
-makeSequenceJobScripts <- function(simName,sequenceFileXML,  DARTprogDir, DARTprocess, maxTime = 120, userDescBool = FALSE,
-                                   userDesc = NULL) {
+makeSequenceJobScripts <- function(simName,sequenceFileXML,  DARTprogDir, DARTprocess, maxTime = 120, userDesc = NULL) {
 
   # run newSequenceFileXML through DART sequencer
   runDartSequencer(sequenceFileXML, simName, DARTprogDir, maxTime)
 
   #move files from sequence folder and create an executable script file
-  moveFilescreateScripts(simName, DARTprogDir, DARTprocess, userDescBool, userDesc)
+  moveFilescreateScripts(simName, DARTprogDir, DARTprocess, userDesc)
 }
