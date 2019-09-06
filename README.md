@@ -98,13 +98,15 @@ daRtInput/<datettime>/simName has been created and within this directory
 is sequence files, one for each combination of propertyArgs. Within each
 sequence file is a script file (shell or batch depending on operting
 system), which is capable of running the sequence file through
-dart-maket.
+dart-maket. Furthermore a database is created, containing a job tracking
+table (JTT) that can be used to track the status of the sequenced
+simulations if running them on a remote server.
 
 In summary, dartSeqNewInputs essentially carries out two processes: 1.
 editing the xml file that defines the arguments input into DART. 2.
-creates sequenced simulation files for each combination of arguments and
+creates sequenced simulation files for each combination of arguments,
 creates a script file that can execute the simulation folder for the
-given DART process.
+given DART process and creates a job tracking table.
 
 These two processes can be carried out seperately. The fist
 function:
