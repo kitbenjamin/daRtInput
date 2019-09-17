@@ -9,7 +9,7 @@ changePropertyInput <- function(newInputs, groupVar, sequenceFileXML, sequenceXM
   newArg <- unlist(newInputs['Newargs'])
 
   #check for errors
-  checkErrors(groupVar, propertyName, groupName, newArg, sequenceXML)
+  checkErrors(groupVar, propertyName, groupName, newArg, sequenceXML, newSequenceFileXML)
 
   # replace the sequence name with the new sequence name
   if (sequenceFileXML != newSequenceFileXML) {

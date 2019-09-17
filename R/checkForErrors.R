@@ -1,5 +1,5 @@
 
-checkErrors <- function(groupVar, propertyName, groupName, newArg, sequenceXML){
+checkErrors <- function(groupVar, propertyName, groupName, newArg, sequenceXML, newSequenceFileXML){
   # checks for errors
 
   #find available groups and properties
@@ -36,8 +36,13 @@ checkErrors <- function(groupVar, propertyName, groupName, newArg, sequenceXML){
   }
 
   #ensure .xml is at the end of file name
+  if (!grepl('.xml' , sequenceFileXML)) {
+    stop( 'sequenceFileXML must be an xml file (name must end in .xml)')
+  }
+
+  #ensure .xml is at the end of file name
   if (!grepl('.xml' ,newSequenceFileXML)) {
-    stop( 'newSequenceFileXML must be an xml file')
+    stop( 'newSequenceFileXML must be an xml file (name must end in .xml)')
   }
 
   #check id generate LUT was selected
