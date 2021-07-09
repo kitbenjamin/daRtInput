@@ -15,7 +15,7 @@ moveFilescreateScripts <- function(simName, DARTprogDir, DARTprocess, userDesc){
   }
 
 
-  #create job tracking table
+  #create job tracking table JTT
   dbName <- paste0(simName, '_JTT.db')
   dbFullPath <- paste0(newDir, '/', dbName )
   createJTT(dbFullPath, simName, newDir, DARTprogDir)
